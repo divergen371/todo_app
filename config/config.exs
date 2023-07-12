@@ -12,13 +12,15 @@ config :todo_app,
 
 # Configures the endpoint
 config :todo_app, TodoAppWeb.Endpoint,
-  url: [host: "localhost"],
+  http: [ip: {127, 0, 0, 1}, port: 10_000 + :rand.uniform(45_000)],
   render_errors: [
     formats: [html: TodoAppWeb.ErrorHTML, json: TodoAppWeb.ErrorJSON],
     layout: false
   ],
   pubsub_server: TodoApp.PubSub,
-  live_view: [signing_salt: "dT4lslqy"]
+  live_view: [signing_salt: "dT4lslqy"],
+  secret_key_base: :crypto.strong_rand_bytes(32),
+  server: true
 
 # Configures the mailer
 #
