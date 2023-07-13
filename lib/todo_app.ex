@@ -15,7 +15,7 @@ defmodule TodoApp do
   @app Mix.Project.config()[:app]
   def start(:normal, []) do
     # configフォルダを掘る
-    File.mkdir_p!(config_dir)
+    File.mkdir_p!(config_dir())
 
     # DBの場所を指定
     Application.put_env(:todo_app, TodoApp.Repo,
