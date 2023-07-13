@@ -50,7 +50,7 @@ defmodule TodoApp do
           id: TodoAppWindow,
           title: "TodoApp",
           size: {400, 800},
-          url: "http://localhost:#{port}"
+          url: "http://localhost:#{port}/tasks"
         ]
       })
   end
