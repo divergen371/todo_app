@@ -20,11 +20,8 @@
     </div>
     <.link patch={~p"/tasks/#{task}/edit"}>Edit</.link>
   </:action>
-  <:action :let={{id, task}}>
-    <.link
-      phx-click={JS.push("delete", value: %{id: task.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
-    >
+  <:action :let={{_id, task}}>
+    <.link patch={~p"/tasks/#{task}/delete"}>
       Delete
     </.link>
   </:action>
@@ -39,4 +36,14 @@
     task={@task}
     patch={~p"/tasks"}
   />
+</.modal>
+
+<.modal
+  :if={@live_action in [:delete]}
+  id="task-delete-modal"
+  show
+  on_cancel={JS.navigate(~p"/tasks")}
+>
+  <p class="m-8">Are you sure?</p>
+  <.button phx-click={JS.push("delete", value: %{id: @task.id})}>Delete</.button>
 </.modal>

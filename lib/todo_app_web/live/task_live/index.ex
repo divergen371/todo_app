@@ -32,6 +32,12 @@ defmodule TodoAppWeb.TaskLive.Index do
     |> assign(:task, nil)
   end
 
+  defp apply_action(socket, :delete, %{"id" => id}) do
+    socket
+    |> assign(:page_title, "Delete Task")
+    |> assign(:task, Tasks.get_task!(id))
+  end
+
   @impl true
   def handle_info({TodoAppWeb.TaskLive.FormComponent, {:saved, task}}, socket) do
     {:noreply, stream_insert(socket, :tasks, task)}
@@ -42,6 +48,10 @@ defmodule TodoAppWeb.TaskLive.Index do
     task = Tasks.get_task!(id)
     {:ok, _} = Tasks.delete_task(task)
 
-    {:noreply, stream_delete(socket, :tasks, task)}
+    {:noreply,
+     socket
+     |> put_flash(:info, "Task delete successfully")
+     |> push_navigate(to: ~p"/tasks")
+     |> stream_delete(:tasks, task)}
   end
 end

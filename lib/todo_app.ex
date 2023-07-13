@@ -50,12 +50,13 @@ defmodule TodoApp do
           id: TodoAppWindow,
           title: "TodoApp",
           size: {400, 800},
-          url: "http://localhost:#{port}/tasks"
+          url: "http://localhost:#{4000}/tasks"
         ]
       })
   end
 
   def config_change(changed, _new, removed) do
     TodoAppWeb.Endpoint.config_change(changed, removed)
+    :ok
   end
 end
